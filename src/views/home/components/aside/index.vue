@@ -46,7 +46,7 @@ export default ({
     }
   },
   created () {
-    emitter.on('changeCollapse', (collapse) => {
+    emitter.on('changeCollapse', ({ collapse }) => {
       this.isCollapse = collapse
       console.log(this.isCollapse, 'aside')
     })

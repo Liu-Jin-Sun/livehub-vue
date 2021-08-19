@@ -3,17 +3,19 @@
     <i class="el-icon-s-fold" @click="changeCollapse"></i>
     2021-8-18
   </div>
-  <el-dropdown class="dropdown">
-    <div class="el-dropdown-link">
-        <img :src="photo" class="avatar">
-        <span class="name">{{name}}</span>
-        <div class="el-icon-arrow-down el-icon--right"></div>
-        <el-dropdown-menu class="dropdown-menu">
-          <el-dropdown-item class="dropdown-menu-item">个人设置</el-dropdown-item>
-          <el-dropdown-item class="dropdown-menu-item">用户退出</el-dropdown-item>
-      </el-dropdown-menu>
-    </div>
-  </el-dropdown>
+  <div @mouseover="show">
+     <el-dropdown class="dropdown">
+      <div class="el-dropdown-link">
+          <img :src="photo" class="avatar">
+          <span class="name">{{name}}</span>
+          <div class="el-icon-arrow-down el-icon--right"></div>
+          <el-dropdown-menu class="dropdown-menu">
+            <el-dropdown-item class="dropdown-menu-item">个人设置</el-dropdown-item>
+            <el-dropdown-item class="dropdown-menu-item" @click="exit">用户退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </div>
+    </el-dropdown>
+  </div>
 </template>
 <script>
 import emitter from '@/utlis/emitter.js'
@@ -41,6 +43,10 @@ export default ({
       this.collapse = !this.collapse
       console.log(this.collapse, 'header')
       emitter.emit('changeCollapse', { collapse: this.collapse })
+    },
+    exit () {
+      this.$router.push('./login')
+      window.localStorage.removeItem('token')
     }
   }
 })
@@ -65,7 +71,7 @@ export default ({
   }
   .dropdown-menu{
     top: 20px;
-    left: 25px;
+    left: 30px;
     display: none;
     &:hover{
       display: block;
